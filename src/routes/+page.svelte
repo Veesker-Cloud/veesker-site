@@ -101,7 +101,9 @@
       <img src="/veesker-mascot.png" alt="Veesker Platform" class="hero-logo" width="1080" height="1080" />
     </picture>
     <div class="badge">Built for Oracle 9i → 26ai</div>
-    <ShimmerText as="h1">The Oracle development<br />platform for the AI era.</ShimmerText>
+    <TextSplit as="h1" splitBy="word" stagger={0.06} duration={0.7}>
+      The Oracle development<br />platform for the AI era.
+    </TextSplit>
     <ScrollReveal delay={0.15}>
       <p class="lead">
         Free local-first IDE today. Optional Veesker Cloud (Coming Soon — H2 2026) when your team needs managed intelligence.
@@ -645,6 +647,7 @@
 <SqlDivider sql={SECTION_DIVIDERS.securityToWaitlist} />
 
 <section class="waitlist" id="waitlist" aria-labelledby="waitlist-title">
+  <GridBeams cellSize={48} lineColor="rgba(138, 216, 251, 0.08)" glowColor="rgba(43, 180, 238, 0.4)" />
   <div class="container">
     <ScrollReveal>
       <AnimatedBorder speed="3s" borderRadius="16px" innerBg="radial-gradient(120% 100% at 0% 0%, rgba(43,180,238,0.18), transparent 46%), linear-gradient(165deg, rgba(22,29,36,0.96), rgba(16,22,29,0.97))">
@@ -1391,7 +1394,13 @@
 
   .waitlist {
     padding: 80px 0;
+    position: relative;
+    overflow: hidden;
     background: linear-gradient(180deg, rgba(14, 12, 10, 0.95), rgba(20, 27, 34, 0.95));
+  }
+  .waitlist > .container {
+    position: relative;
+    z-index: 1;
   }
   .waitlist :global(.anim-border-wrap) {
     max-width: 880px;
