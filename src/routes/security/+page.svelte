@@ -4,21 +4,21 @@
 </script>
 
 <Seo
-  title="Security"
-  description="Veesker is local-first by design. Database credentials never leave your machine, the source is open under Apache 2.0, every release is signed, and the codebase is continuously audited via CodeQL and Dependabot."
+  title="Security & Trust"
+  description="How Veesker protects your database and your data. No auto-commit, OS keychain credentials, local audit trail, and transparent AI boundaries — all verifiable in open source."
   path="/security"
   image="/datamap-hero.png"
-  imageAlt="Veesker security architecture — Desktop Client → API → Oracle, with encrypted Sandbox path"
+  imageAlt="Veesker security architecture — Desktop Client to Oracle, with local audit and OS keychain"
 />
 
 <ScrollReveal>
   <section class="hero">
     <div class="container">
-      <div class="eyebrow">Trust model</div>
-      <h1>Security at Veesker.</h1>
+      <div class="eyebrow">Security &amp; Trust</div>
+      <h1>How Veesker protects your data.</h1>
       <p class="lead">
-        Local-first by design. Open-source by default. Continuously audited.
-        Here is exactly how Veesker handles your data, your credentials, and your code.
+        No auto-commit. No background execution. No plaintext credentials.
+        Every claim on this page is verifiable in the Apache 2.0 source.
       </p>
     </div>
   </section>
@@ -28,171 +28,169 @@
   <section class="pillars">
     <div class="container">
       <div class="pillar-grid">
-      <article class="pillar">
-        <div class="pillar-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2 4 6v6c0 4.4 3.4 8.5 8 10 4.6-1.5 8-5.6 8-10V6z"/>
-            <path d="m9 12 2 2 4-4"/>
-          </svg>
-        </div>
-        <h2>Local-first by design</h2>
-        <ul>
-          <li>Oracle credentials live in OS keychains: Keychain on macOS, DPAPI on Windows, Secret Service on Linux.</li>
-          <li>Database connections never leave your desktop install.</li>
-          <li>Cloud features are strictly opt-in. The IDE works fully offline.</li>
-        </ul>
-      </article>
 
-      <article class="pillar">
-        <div class="pillar-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z"/>
-            <circle cx="6" cy="5" r="0.6" fill="currentColor"/>
-            <circle cx="6" cy="12" r="0.6" fill="currentColor"/>
-            <circle cx="6" cy="19" r="0.6" fill="currentColor"/>
-          </svg>
-        </div>
-        <h2>Open source you can audit</h2>
-        <ul>
-          <li>Community Edition is Apache 2.0, source on <a href="https://github.com/veesker-cloud/veesker-community-edition" target="_blank" rel="noopener">GitHub</a>.</li>
-          <li>Every dependency change is reviewed via Dependabot before merge.</li>
-          <li>Static analysis runs on every PR via CodeQL — JS, TS, Rust paths.</li>
-          <li>OSV-Scanner monitors transitive vulns weekly.</li>
-        </ul>
-      </article>
+        <article class="pillar">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          <h2>Execution safety</h2>
+          <ul>
+            <li><strong>User-initiated only.</strong> Every SQL statement requires you to click Run or press the execute shortcut. Veesker never executes SQL in the background.</li>
+            <li><strong>No auto-commit.</strong> <code>oracledb.autoCommit</code> is set to <code>false</code> globally and repeated on every execute call. Every transaction requires an explicit COMMIT or ROLLBACK.</li>
+            <li><strong>No scheduled or timed queries.</strong> Veesker has no background jobs, cron logic, or deferred execution of any kind.</li>
+            <li><strong>Unsafe-DML confirmations.</strong> Bare DELETE or UPDATE without a WHERE clause triggers a confirmation modal before reaching Oracle.</li>
+          </ul>
+        </article>
 
-      <article class="pillar">
-        <div class="pillar-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="4" y="10" width="16" height="11" rx="2"/>
-            <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
-          </svg>
-        </div>
-        <h2>Per-connection safety guards</h2>
-        <ul>
-          <li><strong>Environment-aware:</strong> dev / staging / prod tags drive UI affordances and confirm gates.</li>
-          <li><strong>Read-only mode:</strong> blocks DML/DDL on connections marked read-only.</li>
-          <li><strong>Statement timeouts:</strong> per-connection cap prevents runaway queries.</li>
-          <li><strong>Unsafe-DML confirmations:</strong> bare DELETE/UPDATE without WHERE require explicit re-confirmation.</li>
-        </ul>
-      </article>
+        <article class="pillar">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="10" width="16" height="11" rx="2"/>
+              <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+            </svg>
+          </div>
+          <h2>Credential safety</h2>
+          <ul>
+            <li><strong>OS keychain only.</strong> Passwords are stored in Windows Credential Manager, macOS Keychain, or Linux libsecret — never in SQLite, log files, or audit files.</li>
+            <li><strong>Local IPC only.</strong> Credentials travel only over a localhost stdin/stdout pipe (the Tauri IPC channel) to open Oracle sessions. They never leave your machine.</li>
+            <li><strong>Cloud Edition AI never receives passwords.</strong> The Sheep assistant receives schema metadata and SQL — never connection strings or wallet files.</li>
+          </ul>
+        </article>
 
-      <article class="pillar">
-        <div class="pillar-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v4M12 18v4M3 12h3M18 12h3"/>
-            <circle cx="12" cy="12" r="6"/>
-            <path d="m15 9-6 6M9 9l6 6"/>
-          </svg>
-        </div>
-        <h2>Signed releases &amp; auto-update</h2>
-        <ul>
-          <li>Every release is signed with Ed25519 before publication.</li>
-          <li>The auto-updater verifies signatures on launch — tampered binaries fail closed.</li>
-          <li>Windows installer code-signing via Azure Trusted Signing — Microsoft Identity Validation in progress (Coming Soon).</li>
-          <li>SHA-256 checksums published with each release for manual verification.</li>
-        </ul>
-      </article>
+        <article class="pillar">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
+          <h2>Audit trail</h2>
+          <ul>
+            <li><strong>Every executed statement is logged.</strong> Entries go to <code>&lt;app_data&gt;/audit/YYYY-MM-DD.jsonl</code> and include timestamp, host, username, SQL, success/failure, row count, and elapsed time.</li>
+            <li><strong>Written by the native host, not the renderer.</strong> The audit write happens in the Rust layer (<code>src-tauri/src/commands.rs → write_audit_entry()</code>). A compromised WebView renderer cannot suppress it.</li>
+            <li><strong>You own your data.</strong> Audit files stay on your filesystem. Veesker never ships them to a remote server in Community Edition.</li>
+          </ul>
+        </article>
+
+        <article class="pillar">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2 4 6v6c0 4.4 3.4 8.5 8 10 4.6-1.5 8-5.6 8-10V6z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+          <h2>Per-connection safety guards</h2>
+          <ul>
+            <li><strong>Read-only mode</strong> — the sidecar (<code>sidecar/src/oracle.ts → enforceSafetyForStatement()</code>) rejects any non-SELECT before it reaches Oracle. This guard is server-side; the UI layer cannot bypass it.</li>
+            <li><strong>Environment tagging</strong> — dev / staging / prod labels drive UI affordances and confirm gates.</li>
+            <li><strong>Statement timeouts</strong> — per-connection cap prevents runaway queries from locking your database.</li>
+          </ul>
+        </article>
+
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 </ScrollReveal>
 
 <ScrollReveal>
-  <section class="sandbox-zone" aria-labelledby="sandbox-zone-title">
+  <section class="ai-zone" aria-labelledby="ai-zone-title">
     <div class="container">
-    <h2 id="sandbox-zone-title">VeeskerDB Sandbox — encryption details.</h2>
-    <p class="zone-lead">
-      When the optional Cloud Sandbox is used, the data flow is engineered so Veesker servers never see plaintext.
-    </p>
-    <div class="zone-grid">
-      <div class="zone-card">
-        <h3>End-to-end encryption</h3>
-        <p>X25519 envelopes per recipient. ChaCha20-Poly1305 for content. Key derivation via HKDF.</p>
+      <h2 id="ai-zone-title">AI transparency — what Sheep sends to Anthropic.</h2>
+      <p class="zone-lead">
+        The Sheep AI assistant suggests SQL and explains results. It never executes anything autonomously.
+        An explicit disclosure modal is shown before AI can be used on any connection.
+      </p>
+      <div class="zone-grid">
+        <div class="zone-card zone-card--sends">
+          <h3>What Sheep sends to <code>api.anthropic.com</code></h3>
+          <ul>
+            <li>Schema names, table names, column names</li>
+            <li>SQL you write and submit for analysis</li>
+            <li>Query result samples (up to 50 rows by default)</li>
+            <li>Oracle database version string</li>
+          </ul>
+        </div>
+        <div class="zone-card zone-card--never">
+          <h3>What Sheep never sends</h3>
+          <ul>
+            <li>Passwords or connection strings</li>
+            <li>Wallet files or certificate data</li>
+            <li>Full table dumps or bulk data exports</li>
+            <li>Data from schemas marked as sensitive (Cloud Edition)</li>
+          </ul>
+        </div>
       </div>
-      <div class="zone-card">
-        <h3>Server is a relay</h3>
-        <p>Sandbox blobs upload to Cloudflare R2 with SHA-256 verification on retrieval. The API brokers sealed envelopes — never the plaintext.</p>
-      </div>
-      <div class="zone-card">
-        <h3>Auto-PII masking</h3>
-        <p>Emails, phone numbers, and identifier columns are auto-detected. Owner picks masking strategy — hash, redact, static, or partial — before encryption.</p>
-      </div>
-      <div class="zone-card">
-        <h3>Replay defense + lookup throttling</h3>
-        <p>Each pull validates a one-time nonce and rate-limits per recipient. Lookup endpoint is throttled to prevent enumeration.</p>
-      </div>
+      <p class="zone-note">
+        AI calls on production-tagged connections require per-session acknowledgement enforced in the sidecar — not just a UI prompt.
+      </p>
     </div>
-  </div>
-</section>
+  </section>
 </ScrollReveal>
 
 <ScrollReveal>
-  <section class="audits">
-  <div class="container">
-    <h2>Audit history</h2>
-    <div class="audit-list">
-      <article class="audit-item">
-        <div class="audit-date">2026-05-02</div>
-        <h3>Sandbox Plan 5b — review pass 2 (ultrathink)</h3>
-        <p>
-          Multi-agent security review of the Sandbox publish/pull flow. Hardened JWT identity in Rust + sidecar.
-          R2 SHA verification, replay defense, lookup throttling. Cross-repo PRs merged.
-        </p>
-      </article>
-      <article class="audit-item">
-        <div class="audit-date">2026-04-30</div>
-        <h3>Comprehensive security audit (16 findings)</h3>
-        <p>
-          16 findings across credential storage, SQL safety, audit logging, error reflection.
-          All resolved across 4 batches + ultrareview pass. Migrations 004-006 hardened the auth/audit path.
-        </p>
-      </article>
-      <article class="audit-item">
-        <div class="audit-date">2026-04-26</div>
-        <h3>Per-connection safety milestone</h3>
-        <p>
-          Shipped 4 per-connection safety guards: environment-aware (dev/staging/prod),
-          read-only mode, statement timeouts, unsafe-DML confirmations. Plus Dependabot, CodeQL, OSV-Scanner CI.
-        </p>
-      </article>
+  <section class="open-source">
+    <div class="container">
+      <div class="os-inner">
+        <div class="os-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.43 7.86 10.96.58.11.79-.25.79-.56v-1.99c-3.2.69-3.88-1.36-3.88-1.36-.52-1.32-1.28-1.67-1.28-1.67-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.72-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.14 1.17a10.9 10.9 0 0 1 5.72 0c2.18-1.48 3.14-1.17 3.14-1.17.62 1.58.23 2.75.11 3.04.73.8 1.18 1.82 1.18 3.07 0 4.42-2.7 5.39-5.27 5.67.41.35.78 1.05.78 2.11v3.13c0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+          </svg>
+        </div>
+        <div class="os-text">
+          <h2>Apache 2.0 — audit the code yourself.</h2>
+          <p>
+            All safety-critical code is in the open-source Community Edition repository.
+            You can read, audit, and compile every line that touches your Oracle database.
+          </p>
+          <div class="os-files">
+            <div class="os-file"><code>sidecar/src/oracle.ts</code> — all Oracle operations, safety guards, auto-commit enforcement</div>
+            <div class="os-file"><code>sidecar/src/sql-kind.ts</code> — SQL classification and unsafe DML detection</div>
+            <div class="os-file"><code>sidecar/src/ai.ts</code> — AI integration, what data is sent, production gate</div>
+            <div class="os-file"><code>src-tauri/src/commands.rs</code> — audit logging, credential handling, SSRF protections</div>
+          </div>
+          <div class="os-cta">
+            <a href="https://github.com/veesker-cloud/veesker-community-edition" target="_blank" rel="noopener" class="btn">View source on GitHub</a>
+            <a href="https://github.com/veesker-cloud/veesker-community-edition/blob/main/SECURITY.md" target="_blank" rel="noopener" class="btn secondary">Read SECURITY.md</a>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 </ScrollReveal>
 
 <ScrollReveal>
   <section class="disclosure">
-  <div class="container disclosure-inner">
-    <h2>Responsible disclosure</h2>
-    <p class="disclosure-lead">
-      Found a vulnerability? Report it privately — we treat security reports as priority work.
-    </p>
-    <div class="disclosure-grid">
-      <div>
-        <h3>How to report</h3>
-        <ul>
-          <li>Email <a href="mailto:geraldovianajr@veesker.cloud?subject=%5BSECURITY%5D%20Vulnerability%20report"><code>geraldovianajr@veesker.cloud</code></a> with subject prefix <code>[SECURITY]</code>.</li>
-          <li>Or open a <a href="https://github.com/veesker-cloud/veesker-community-edition/security/advisories/new" target="_blank" rel="noopener">GitHub private security advisory</a>.</li>
-          <li>Include reproduction steps, affected version, and impact assessment.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Our commitment</h3>
-        <ul>
-          <li>Initial response within 2 business days.</li>
-          <li>Coordinated disclosure window — typically 60-90 days from triage.</li>
-          <li>Credit in the release notes (or anonymous if you prefer).</li>
-          <li>No legal action against good-faith research.</li>
-        </ul>
+    <div class="container disclosure-inner">
+      <h2>Responsible disclosure</h2>
+      <p class="disclosure-lead">
+        Found a vulnerability? Report it privately — we treat security reports as priority work.
+      </p>
+      <div class="disclosure-grid">
+        <div>
+          <h3>How to report</h3>
+          <ul>
+            <li>Email <a href="mailto:security@veesker.cloud"><code>security@veesker.cloud</code></a> with a description, reproduction steps, and impact assessment.</li>
+            <li>Or open a <a href="https://github.com/veesker-cloud/veesker-community-edition/security/advisories/new" target="_blank" rel="noopener">GitHub private security advisory</a>.</li>
+            <li>Do not open public GitHub issues for security vulnerabilities.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Our commitment</h3>
+          <ul>
+            <li>Acknowledgement within <strong>72 hours</strong>.</li>
+            <li>Fix timeline within <strong>7 days</strong> for critical issues.</li>
+            <li>Credit in release notes (or anonymous if you prefer).</li>
+            <li>No legal action against good-faith research.</li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="disclosure-cta">
-      <a href="https://github.com/veesker-cloud/veesker-community-edition/blob/main/SECURITY.md" target="_blank" rel="noopener" class="btn">Read full SECURITY.md</a>
-      <a href="https://github.com/veesker-cloud/veesker-community-edition/security" target="_blank" rel="noopener" class="btn">View security advisories</a>
-    </div>
-  </div>
-</section>
+  </section>
 </ScrollReveal>
 
 <style>
@@ -280,11 +278,15 @@
   .pillar li strong {
     color: var(--text);
   }
-  .pillar a {
-    color: var(--accent-text);
+  .pillar code {
+    font-family: "JetBrains Mono", monospace;
+    background: rgba(245, 241, 232, 0.08);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 12px;
   }
 
-  .sandbox-zone {
+  .ai-zone {
     padding: 60px 0;
     background:
       radial-gradient(110% 90% at 80% 0%, rgba(43, 180, 238, 0.16), transparent 56%),
@@ -292,7 +294,7 @@
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
   }
-  .sandbox-zone h2 {
+  .ai-zone h2 {
     text-align: center;
     font-size: 30px;
     margin: 0 0 10px;
@@ -314,65 +316,141 @@
     margin: 0 auto;
   }
   .zone-card {
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+  .zone-card--sends {
     background: linear-gradient(170deg, rgba(28, 38, 48, 0.94), rgba(18, 26, 34, 0.95));
     border: 1px solid rgba(138, 216, 251, 0.28);
-    border-radius: 10px;
-    padding: 18px 20px;
+  }
+  .zone-card--never {
+    background: linear-gradient(170deg, rgba(28, 20, 20, 0.94), rgba(20, 14, 14, 0.95));
+    border: 1px solid rgba(249, 115, 22, 0.24);
   }
   .zone-card h3 {
-    font-size: 15px;
-    margin: 0 0 8px;
+    font-size: 14px;
+    margin: 0 0 12px;
     color: #cfeeff;
+    font-weight: 600;
   }
-  .zone-card p {
+  .zone-card--never h3 {
+    color: #fdba74;
+  }
+  .zone-card ul {
+    list-style: none;
+    padding: 0;
     margin: 0;
-    color: var(--text-muted);
-    font-size: 13px;
-    line-height: 1.6;
   }
-
-  .audits {
-    padding: 60px 0;
-  }
-  .audits h2 {
-    text-align: center;
-    font-size: 30px;
-    margin: 0 0 32px;
-  }
-  .audit-list {
-    max-width: 820px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .audit-item {
-    background: var(--bg-soft);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    border-radius: 10px;
-    padding: 18px 22px;
-  }
-  .audit-date {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 11.5px;
-    letter-spacing: 0.06em;
-    color: var(--text-muted);
-    margin-bottom: 6px;
-  }
-  .audit-item h3 {
-    font-size: 17px;
-    margin: 0 0 8px;
-  }
-  .audit-item p {
+  .zone-card li {
     color: var(--text-muted);
     font-size: 13.5px;
     line-height: 1.6;
-    margin: 0;
+    padding: 6px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .zone-card li:first-child {
+    border-top: none;
+  }
+  .zone-card code {
+    font-family: "JetBrains Mono", monospace;
+    background: rgba(245, 241, 232, 0.08);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  .zone-note {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    margin: 20px auto 0;
+    max-width: 640px;
+    line-height: 1.6;
+  }
+
+  .open-source {
+    padding: 60px 0;
+  }
+  .os-inner {
+    max-width: 920px;
+    margin: 0 auto;
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+  }
+  .os-icon {
+    flex: 0 0 auto;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(245, 241, 232, 0.08);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  .os-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+  .os-text {
+    flex: 1;
+  }
+  .os-text h2 {
+    font-size: 26px;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  .os-text > p {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.65;
+    margin: 0 0 20px;
+  }
+  .os-files {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+  .os-file {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .os-file code {
+    font-family: "JetBrains Mono", monospace;
+    background: rgba(245, 241, 232, 0.08);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--text);
+  }
+  .os-cta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .btn.secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .btn.secondary:hover {
+    border-color: var(--text-muted);
+    color: var(--text);
+    text-decoration: none;
   }
 
   .disclosure {
     padding: 60px 0 80px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-soft);
   }
   .disclosure-inner {
     max-width: 920px;
@@ -396,7 +474,7 @@
     gap: 18px;
   }
   .disclosure-grid > div {
-    background: var(--bg-soft);
+    background: var(--bg-page, #0e0c0a);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 22px;
@@ -420,6 +498,9 @@
   .disclosure-grid li:first-child {
     border-top: none;
   }
+  .disclosure-grid li strong {
+    color: var(--text);
+  }
   .disclosure-grid code {
     font-family: "JetBrains Mono", monospace;
     background: rgba(245, 241, 232, 0.08);
@@ -430,13 +511,6 @@
   .disclosure-grid a {
     color: var(--accent-text);
   }
-  .disclosure-cta {
-    margin-top: 28px;
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
 
   @media (max-width: 820px) {
     h1 {
@@ -446,6 +520,9 @@
     .zone-grid,
     .disclosure-grid {
       grid-template-columns: 1fr;
+    }
+    .os-inner {
+      flex-direction: column;
     }
   }
 </style>
