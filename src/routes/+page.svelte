@@ -6,9 +6,11 @@
   import MeteorShower from "$lib/components/MeteorShower.svelte";
   import ShimmerText from "$lib/components/ShimmerText.svelte";
   import ScrollReveal from "$lib/components/ScrollReveal.svelte";
-  import TiltCard from "$lib/components/TiltCard.svelte";
   import AnimatedBorder from "$lib/components/AnimatedBorder.svelte";
-  import { spotlight } from "$lib/actions/spotlight";
+  import MagicCard from "$lib/components/MagicCard.svelte";
+  import MagneticButton from "$lib/components/MagneticButton.svelte";
+  import GridBeams from "$lib/components/GridBeams.svelte";
+  import TextSplit from "$lib/components/TextSplit.svelte";
 
   let activeLayer = $state<"community" | "cloud" | null>(null);
 
@@ -98,18 +100,22 @@
     </ScrollReveal>
     <ScrollReveal delay={0.35}>
       <div class="cta">
-        <a href="/download" class="btn primary cta-btn">
-          <span class="cta-icon-wrap">
-            <img src="/veesker-community-logo.png" alt="" aria-hidden="true" class="cta-icon ce-icon" width="1024" height="1024" />
-          </span>
-          <span>Download Community</span>
-        </a>
-        <a href="/pricing#cloud" class="btn cloud cta-btn">
-          <span class="cta-icon-wrap cloud">
-            <img src="/veesker-cloud-logo.png" alt="" aria-hidden="true" class="cta-icon cloud-icon" width="1536" height="1024" />
-          </span>
-          <span>Learn about Cloud →</span>
-        </a>
+        <MagneticButton strength={0.28} radius={70}>
+          <a href="/download" class="btn primary cta-btn">
+            <span class="cta-icon-wrap">
+              <img src="/veesker-community-logo.png" alt="" aria-hidden="true" class="cta-icon ce-icon" width="1024" height="1024" />
+            </span>
+            <span>Download Community</span>
+          </a>
+        </MagneticButton>
+        <MagneticButton strength={0.28} radius={70}>
+          <a href="/pricing#cloud" class="btn cloud cta-btn">
+            <span class="cta-icon-wrap cloud">
+              <img src="/veesker-cloud-logo.png" alt="" aria-hidden="true" class="cta-icon cloud-icon" width="1536" height="1024" />
+            </span>
+            <span>Learn about Cloud →</span>
+          </a>
+        </MagneticButton>
       </div>
     </ScrollReveal>
     <div class="social-proof" aria-label="Open-source signals">
@@ -176,37 +182,61 @@
 
     <ScrollReveal stagger={0.12}>
       <div class="vdb-flow">
-        <AnimatedBorder speed="5s" borderRadius="12px" innerBg="linear-gradient(170deg, rgba(28,38,48,0.94), rgba(18,26,34,0.95))">
+        <MagicCard
+          class="vdb-card"
+          glowColor="rgba(138, 216, 251, 0.32)"
+          accentColor="rgba(138, 216, 251, 0.6)"
+          secondaryColor="rgba(43, 180, 238, 0.55)"
+          maxTilt={6}
+        >
           <div class="vdb-step">
             <div class="vdb-step-num">01</div>
             <h3>Slice</h3>
             <p>Owner picks tables, FK depth, and TTL. Veesker walks the schema graph and stages a coherent extract.</p>
           </div>
-        </AnimatedBorder>
+        </MagicCard>
         <div class="vdb-arrow" aria-hidden="true">→</div>
-        <AnimatedBorder speed="5s" borderRadius="12px" innerBg="linear-gradient(170deg, rgba(28,38,48,0.94), rgba(18,26,34,0.95))">
+        <MagicCard
+          class="vdb-card"
+          glowColor="rgba(138, 216, 251, 0.32)"
+          accentColor="rgba(138, 216, 251, 0.6)"
+          secondaryColor="rgba(43, 180, 238, 0.55)"
+          maxTilt={6}
+        >
           <div class="vdb-step">
             <div class="vdb-step-num">02</div>
             <h3>Mask</h3>
             <p>Emails, phone numbers, and identifier columns are auto-detected and masked — hash, redact, static, or partial.</p>
           </div>
-        </AnimatedBorder>
+        </MagicCard>
         <div class="vdb-arrow" aria-hidden="true">→</div>
-        <AnimatedBorder speed="5s" borderRadius="12px" innerBg="linear-gradient(170deg, rgba(28,38,48,0.94), rgba(18,26,34,0.95))">
+        <MagicCard
+          class="vdb-card"
+          glowColor="rgba(138, 216, 251, 0.32)"
+          accentColor="rgba(138, 216, 251, 0.6)"
+          secondaryColor="rgba(43, 180, 238, 0.55)"
+          maxTilt={6}
+        >
           <div class="vdb-step">
             <div class="vdb-step-num">03</div>
             <h3>Encrypt</h3>
             <p>Per-recipient X25519 envelopes, ChaCha20-Poly1305 content. Veesker servers never see plaintext.</p>
           </div>
-        </AnimatedBorder>
+        </MagicCard>
         <div class="vdb-arrow" aria-hidden="true">→</div>
-        <AnimatedBorder speed="5s" borderRadius="12px" innerBg="linear-gradient(170deg, rgba(28,38,48,0.94), rgba(18,26,34,0.95))">
+        <MagicCard
+          class="vdb-card"
+          glowColor="rgba(138, 216, 251, 0.32)"
+          accentColor="rgba(138, 216, 251, 0.6)"
+          secondaryColor="rgba(43, 180, 238, 0.55)"
+          maxTilt={6}
+        >
           <div class="vdb-step">
             <div class="vdb-step-num">04</div>
             <h3>Open</h3>
             <p>Member pulls, decrypts locally, and runs full SQL on an in-memory DuckDB. Milliseconds, no network.</p>
           </div>
-        </AnimatedBorder>
+        </MagicCard>
       </div>
     </ScrollReveal>
 
@@ -229,8 +259,8 @@
     </ScrollReveal>
     <ScrollReveal stagger={0.08}>
       <div class="feat-grid">
-        <TiltCard class="feat" maxTilt={6}>
-          <div use:spotlight class="feat-inner">
+        <MagicCard class="feat" maxTilt={6} animatedBorder={false}>
+          <div class="feat-inner">
             <div class="feat-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <ellipse cx="12" cy="5" rx="8" ry="3"/>
@@ -241,9 +271,9 @@
             <h3>Full SQL and PL/SQL IDE</h3>
             <p>Run multi-statement SQL, inspect large result sets, and debug production-grade PL/SQL workflows.</p>
           </div>
-        </TiltCard>
-        <TiltCard class="feat" maxTilt={6}>
-          <div use:spotlight class="feat-inner">
+        </MagicCard>
+        <MagicCard class="feat" maxTilt={6} animatedBorder={false}>
+          <div class="feat-inner">
             <div class="feat-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="3" y="6" width="18" height="14" rx="2"/>
@@ -254,9 +284,9 @@
             <h3>PL/SQL debugger</h3>
             <p>Breakpoints, step controls, watches, call stack, DBMS_OUTPUT capture, and cursor extraction.</p>
           </div>
-        </TiltCard>
-        <TiltCard class="feat" maxTilt={6}>
-          <div use:spotlight class="feat-inner">
+        </MagicCard>
+        <MagicCard class="feat" maxTilt={6} animatedBorder={false}>
+          <div class="feat-inner">
             <div class="feat-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 6h7l2 2h9v11a2 2 0 0 1-2 2H3z"/>
@@ -266,9 +296,9 @@
             <h3>Schema browser</h3>
             <p>Explore object graphs, inspect dependencies, and navigate large Oracle schemas with less friction.</p>
           </div>
-        </TiltCard>
-        <TiltCard class="feat" maxTilt={6}>
-          <div use:spotlight class="feat-inner">
+        </MagicCard>
+        <MagicCard class="feat" maxTilt={6} animatedBorder={false}>
+          <div class="feat-inner">
             <div class="feat-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="9"/>
@@ -278,9 +308,9 @@
             <h3>VRAS — Veesker REST API Studio</h3>
             <p>Build ORDS endpoints faster with API studio workflows integrated into your Oracle workspace.</p>
           </div>
-        </TiltCard>
-        <TiltCard class="feat" maxTilt={6}>
-          <div use:spotlight class="feat-inner">
+        </MagicCard>
+        <MagicCard class="feat" maxTilt={6} animatedBorder={false}>
+          <div class="feat-inner">
             <div class="feat-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 2 4 6v6c0 4.4 3.4 8.5 8 10 4.6-1.5 8-5.6 8-10V6z"/>
@@ -290,9 +320,9 @@
             <h3>Vector tools</h3>
             <p>Create embeddings, tune indexes, and run similarity workflows with local or managed providers.</p>
           </div>
-        </TiltCard>
-        <TiltCard class="feat" maxTilt={6}>
-          <div use:spotlight class="feat-inner">
+        </MagicCard>
+        <MagicCard class="feat" maxTilt={6} animatedBorder={false}>
+          <div class="feat-inner">
             <div class="feat-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>
@@ -302,7 +332,7 @@
             <h3>BYOK AI — Bring Your Own Key</h3>
             <p>Plug your OpenAI / Anthropic / local key for explain-and-generate without forcing your workflow into a paywall.</p>
           </div>
-        </TiltCard>
+        </MagicCard>
       </div>
     </ScrollReveal>
   </div>
@@ -318,33 +348,33 @@
     </ScrollReveal>
     <ScrollReveal stagger={0.1}>
       <div class="persona-grid">
-        <TiltCard maxTilt={5}>
-          <article class="persona" use:spotlight>
+        <MagicCard class="persona-wrap" maxTilt={5} animatedBorder={false}>
+          <article class="persona">
             <h3>The financial DBA</h3>
             <p>
               Running Oracle 11g/19c on EBS with strict change windows. Wants a modern editor that won't crash on
               1M-row result grids and won't ship credentials to anyone's cloud.
             </p>
           </article>
-        </TiltCard>
-        <TiltCard maxTilt={5}>
-          <article class="persona" use:spotlight>
+        </MagicCard>
+        <MagicCard class="persona-wrap" maxTilt={5} animatedBorder={false}>
+          <article class="persona">
             <h3>The PL/SQL → APEX migrator</h3>
             <p>
               Refactoring legacy packages into APEX 24.x apps. Needs schema-aware navigation, a real debugger, and
               AI that understands Oracle dialects (not generic SQL).
             </p>
           </article>
-        </TiltCard>
-        <TiltCard maxTilt={5}>
-          <article class="persona" use:spotlight>
+        </MagicCard>
+        <MagicCard class="persona-wrap" maxTilt={5} animatedBorder={false}>
+          <article class="persona">
             <h3>The data engineer wiring AI</h3>
             <p>
               Building vector indexes on Oracle 23ai for RAG pipelines. Needs first-class embedding tools, ORDS
               endpoint scaffolding, and shareable extracts without exposing prod.
             </p>
           </article>
-        </TiltCard>
+        </MagicCard>
       </div>
     </ScrollReveal>
   </div>
@@ -368,7 +398,12 @@
 
     <ScrollReveal stagger={0.12}>
       <div class="layer-grid">
-        <TiltCard maxTilt={5}>
+        <MagicCard
+          class="layer-magic community-magic"
+          maxTilt={5}
+          animatedBorder={false}
+          glowColor="rgba(249, 115, 22, 0.28)"
+        >
           <article
             class="layer-card community"
             id="community"
@@ -412,55 +447,60 @@
             </ul>
             <a href="/download" class="btn primary layer-btn">Download Free</a>
           </article>
-        </TiltCard>
-        <AnimatedBorder speed="4s" borderRadius="14px" innerBg="transparent" class="layer-cloud-border">
-          <TiltCard maxTilt={5}>
-            <article
-              class="layer-card cloud"
-              id="cloud"
-              class:focused={activeLayer === "cloud"}
-              class:unfocused={activeLayer === "community"}
-            >
-              <div class="layer-head">
-                <picture class="layer-art-wrap">
-                  <source
-                    type="image/avif"
-                    srcset="/veesker-cloud-logo-320.avif 320w, /veesker-cloud-logo-640.avif 640w"
-                    sizes="(max-width: 980px) 90px, 112px"
-                  />
-                  <source
-                    type="image/webp"
-                    srcset="/veesker-cloud-logo-320.webp 320w, /veesker-cloud-logo-640.webp 640w"
-                    sizes="(max-width: 980px) 90px, 112px"
-                  />
-                  <img
-                    src="/veesker-cloud-logo.png"
-                    alt="Veesker Cloud"
-                    width="1536"
-                    height="1024"
-                    loading="lazy"
-                    class="layer-art"
-                  />
-                </picture>
-                <div>
-                  <h3>Veesker Cloud</h3>
-                  <p>AI intelligence layer for Oracle teams</p>
-                  <span class="status">Coming Soon — H2 2026</span>
-                  <span class="best-for">Best for: managed AI, automation, and multi-dev workflows</span>
-                </div>
+        </MagicCard>
+        <MagicCard
+          class="layer-magic cloud-magic"
+          maxTilt={5}
+          animatedBorder={true}
+          glowColor="rgba(138, 216, 251, 0.32)"
+          accentColor="rgba(138, 216, 251, 0.7)"
+          secondaryColor="rgba(43, 180, 238, 0.55)"
+        >
+          <article
+            class="layer-card cloud"
+            id="cloud"
+            class:focused={activeLayer === "cloud"}
+            class:unfocused={activeLayer === "community"}
+          >
+            <div class="layer-head">
+              <picture class="layer-art-wrap">
+                <source
+                  type="image/avif"
+                  srcset="/veesker-cloud-logo-320.avif 320w, /veesker-cloud-logo-640.avif 640w"
+                  sizes="(max-width: 980px) 90px, 112px"
+                />
+                <source
+                  type="image/webp"
+                  srcset="/veesker-cloud-logo-320.webp 320w, /veesker-cloud-logo-640.webp 640w"
+                  sizes="(max-width: 980px) 90px, 112px"
+                />
+                <img
+                  src="/veesker-cloud-logo.png"
+                  alt="Veesker Cloud"
+                  width="1536"
+                  height="1024"
+                  loading="lazy"
+                  class="layer-art"
+                />
+              </picture>
+              <div>
+                <h3>Veesker Cloud</h3>
+                <p>AI intelligence layer for Oracle teams</p>
+                <span class="status">Coming Soon — H2 2026</span>
+                <span class="best-for">Best for: managed AI, automation, and multi-dev workflows</span>
               </div>
-              <ul>
-                <li>Schema-aware AI grounded in your Oracle DDL</li>
-                <li>Managed AI — no API keys to provision per developer</li>
-                <li>Auto-tune queries with EXPLAIN PLAN feedback</li>
-                <li>Auto-document packages and procedures overnight</li>
-                <li>VeeskerDB Sandbox — share masked extracts safely</li>
-                <li>Team workflows with usage and billing</li>
-              </ul>
-              <a href="#waitlist" class="btn cloud layer-btn">Join Cloud waitlist →</a>
-            </article>
-          </TiltCard>
-        </AnimatedBorder>
+            </div>
+            <ul>
+              <li>Schema-aware AI grounded in your Oracle DDL</li>
+              <li>Managed AI — no API keys to provision per developer</li>
+              <li>Auto-tune queries with EXPLAIN PLAN feedback</li>
+              <li>Auto-document packages and procedures overnight</li>
+              <li>VeeskerDB Sandbox — share masked extracts safely</li>
+              <li>Team workflows with usage and billing</li>
+            </ul>
+            <a href="#waitlist" class="btn cloud layer-btn">Join Cloud waitlist →</a>
+          </article>
+        </MagicCard>
       </div>
     </ScrollReveal>
   </div>
@@ -895,15 +935,11 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
-  .feat {
-    background: linear-gradient(170deg, rgba(33, 28, 22, 0.95), rgba(24, 20, 16, 0.95));
-    border: 1px solid var(--border);
-    border-radius: 12px;
-  }
-  .feat-inner {
+  :global(.feat-inner) {
     height: 100%;
     padding: 24px;
     border-radius: 12px;
+    flex: 1;
   }
   .feat-icon {
     width: 36px;
@@ -921,11 +957,11 @@
     width: 20px;
     height: 20px;
   }
-  .feat h3 {
+  .feat-inner h3 {
     font-size: 18px;
     margin: 0 0 10px;
   }
-  .feat p {
+  .feat-inner p {
     color: var(--text-muted);
     font-size: 13.5px;
     line-height: 1.6;
@@ -1034,28 +1070,47 @@
     opacity: 0.58;
     filter: saturate(0.75);
   }
-  :global(.layer-cloud-border) {
+  :global(.layer-magic) {
     display: flex;
     flex-direction: column;
   }
-  :global(.layer-cloud-border .anim-border-inner) {
+  :global(.layer-magic .magic-card-tilt),
+  :global(.layer-magic .magic-card-content) {
+    display: flex;
+    flex-direction: column;
     flex: 1;
+  }
+  :global(.persona-wrap) {
     display: flex;
     flex-direction: column;
   }
-  :global(.layer-cloud-border .anim-border-inner .tilt-card) {
+  :global(.persona-wrap .magic-card-tilt),
+  :global(.persona-wrap .magic-card-content) {
+    display: flex;
+    flex-direction: column;
     flex: 1;
+  }
+  .vdb-flow :global(.vdb-card) {
     display: flex;
     flex-direction: column;
   }
-  .vdb-flow :global(.anim-border-wrap) {
+  .vdb-flow :global(.vdb-card .magic-card-tilt),
+  .vdb-flow :global(.vdb-card .magic-card-content) {
     display: flex;
     flex-direction: column;
-  }
-  .vdb-flow :global(.anim-border-inner) {
     flex: 1;
+  }
+  :global(.feat) {
     display: flex;
     flex-direction: column;
+    background: linear-gradient(170deg, rgba(33, 28, 22, 0.95), rgba(24, 20, 16, 0.95));
+    border: 1px solid var(--border);
+  }
+  :global(.feat .magic-card-tilt),
+  :global(.feat .magic-card-content) {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
   .layer-head {
     display: grid;

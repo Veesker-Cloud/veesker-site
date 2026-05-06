@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import type { Snippet } from "svelte";
 
   let {
@@ -15,31 +16,49 @@
 
   let el: HTMLDivElement;
 
-  function onMouseMove(e: MouseEvent) {
-    const rect = el.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-    el.style.transition = "none";
-    el.style.transform = `perspective(${perspective}px) rotateY(${x * maxTilt}deg) rotateX(${-y * maxTilt}deg)`;
-  }
+  onMount(() => {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
 
-  function onMouseEnter() {
-    el.style.willChange = "transform";
-  }
+    let cleanup: (() => void) | undefined;
 
-  function onMouseLeave() {
-    el.style.willChange = "auto";
-    el.style.transition = `transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)`;
-    el.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(0deg)`;
-  }
+    (async () => {
+      const { gsap } = await import("gsap");
+      const ctx = gsap.context(() => {
+        const xTo = gsap.quickTo(el, "rotationY", { duration: 0.4, ease: "power2.out" });
+        const yTo = gsap.quickTo(el, "rotationX", { duration: 0.4, ease: "power2.out" });
+
+        const move = (e: MouseEvent) => {
+          const rect = el.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+          const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+          xTo(x * maxTilt);
+          yTo(-y * maxTilt);
+        };
+        const leave = () => { xTo(0); yTo(0); };
+
+        el.addEventListener("mousemove", move);
+        el.addEventListener("mouseleave", leave);
+        cleanup = () => {
+          el.removeEventListener("mousemove", move);
+          el.removeEventListener("mouseleave", leave);
+        };
+      }, el);
+
+      return () => {
+        cleanup?.();
+        ctx.revert();
+      };
+    })();
+
+    return () => cleanup?.();
+  });
 </script>
 
 <div
   bind:this={el}
   class="tilt-card {className}"
-  onmousemove={onMouseMove}
-  onmouseenter={onMouseEnter}
-  onmouseleave={onMouseLeave}
+  style="--perspective:{perspective}px;"
 >
   {@render children()}
 </div>
@@ -47,11 +66,12 @@
 <style>
   .tilt-card {
     transform-style: preserve-3d;
+    perspective: var(--perspective);
+    will-change: transform;
   }
   @media (prefers-reduced-motion: reduce) {
     .tilt-card {
       transform: none !important;
-      transition: none !important;
     }
   }
 </style>

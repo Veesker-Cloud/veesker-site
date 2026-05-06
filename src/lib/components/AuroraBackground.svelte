@@ -10,7 +10,7 @@
   } = $props();
 
   let el: HTMLDivElement;
-  let tl: { kill: () => void } | undefined;
+  let tl: ReturnType<typeof import("gsap").gsap.timeline> | undefined;
 
   onMount(async () => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
