@@ -21,7 +21,7 @@
     bottom: 0;
     right: 8%;
     width: 2px;
-    z-index: 0;
+    z-index: 2;
     pointer-events: none;
   }
   .spine-line {

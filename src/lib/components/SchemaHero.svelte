@@ -70,10 +70,8 @@
         for (const entry of entries) {
           if (entry.isIntersecting) {
             window.addEventListener("mousemove", handleMove, { passive: true });
-            el.classList.add("schema-hero--active");
           } else {
             window.removeEventListener("mousemove", handleMove);
-            el.classList.remove("schema-hero--active");
           }
         }
       },
@@ -146,9 +144,6 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  :global(.schema-hero--active) .tab {
-    will-change: transform;
-  }
   .tab small {
     display: block;
     color: rgba(245, 241, 232, 0.45);
@@ -158,9 +153,9 @@
   }
   .tab.warm { border: 1px solid rgba(253, 186, 116, 0.4); color: rgba(253, 186, 116, 0.85); }
   .tab.cool { border: 1px solid rgba(138, 216, 251, 0.4); color: rgba(156, 226, 255, 0.85); }
-  .tab--back  { opacity: 0.5;  filter: blur(0.5px); transform: translate(var(--mx-back),  var(--my-back)); }
-  .tab--mid   { opacity: 0.7;                       transform: translate(var(--mx-mid),   var(--my-mid)); }
-  .tab--front { opacity: 0.85;                      transform: translate(var(--mx-front), var(--my-front)); }
+  .tab--back  { opacity: 0.5;  filter: blur(0.5px); transform: translate(var(--mx-back),  var(--my-back)); will-change: transform; }
+  .tab--mid   { opacity: 0.7;                       transform: translate(var(--mx-mid),   var(--my-mid)); will-change: transform; }
+  .tab--front { opacity: 0.85;                      transform: translate(var(--mx-front), var(--my-front)); will-change: transform; }
 
   .fk-line {
     position: absolute;
@@ -182,15 +177,13 @@
     border-radius: 50%;
     transform: translateY(-50%);
     pointer-events: none;
-    will-change: left, opacity;
-  }
-  .pulse.warm { background: #fdba74; box-shadow: 0 0 10px rgba(253, 186, 116, 0.95); }
-  .pulse.cool { background: #9ce2ff; box-shadow: 0 0 10px rgba(156, 226, 255, 0.95); }
-  :global(.schema-hero--active) .pulse {
+    will-change: transform, opacity;
     animation-name: pulse-travel;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
   }
+  .pulse.warm { background: #fdba74; box-shadow: 0 0 10px rgba(253, 186, 116, 0.95); }
+  .pulse.cool { background: #9ce2ff; box-shadow: 0 0 10px rgba(156, 226, 255, 0.95); }
   @keyframes pulse-travel {
     0%   { transform: translate(0, -50%);                       opacity: 0; }
     8%   {                                                      opacity: 1; }
@@ -205,11 +198,11 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    :global(.schema-hero--active) .pulse {
+    .pulse {
       animation: none;
       opacity: 1;
       transform: translate(calc(var(--travel-distance) * 0.5), -50%);
     }
-    .tab { transform: none !important; }
+    .tab { transform: none !important; will-change: auto; }
   }
 </style>
