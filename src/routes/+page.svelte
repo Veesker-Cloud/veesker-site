@@ -13,6 +13,8 @@
   import PipelineSpine from "$lib/components/PipelineSpine.svelte";
   import SchemaHero from "$lib/components/SchemaHero.svelte";
   import TextSplit from "$lib/components/TextSplit.svelte";
+  import ConduitTubes from "$lib/components/ConduitTubes.svelte";
+  import SqlDivider from "$lib/components/SqlDivider.svelte";
 
   let activeLayer = $state<"community" | "cloud" | null>(null);
 
@@ -29,6 +31,16 @@
   });
 
   const API_BASE = "https://api.veesker.cloud";
+
+  const SECTION_DIVIDERS = {
+    heroToShowcase:     "SELECT capability FROM platforms WHERE oracle_native = 'Y';",
+    showcaseToSandbox:  "BEGIN sandbox.share('ORDERS', p_recipient => 'partner@veesker.cloud'); END;",
+    sandboxToFeatures:  "SELECT name FROM dba_features WHERE released = 'Y';",
+    featuresToPersonas: "SELECT role, COUNT(*) FROM dba_users GROUP BY role;",
+    personasToPlatform: "SELECT edition, version FROM v$instance;",
+    securityToWaitlist: "INSERT INTO waitlist (email, signed_up_at) VALUES (?, SYSDATE);",
+  } as const;
+
   let waitlistEmail = $state("");
   let waitlistStatus = $state<"idle" | "submitting" | "success" | "rate_limited" | "error">("idle");
   let waitlistError = $state("");
@@ -140,6 +152,8 @@
   </div>
 </section>
 
+<SqlDivider sql={SECTION_DIVIDERS.heroToShowcase} />
+
 <ScrollReveal>
   <section class="screenshot-showcase" aria-labelledby="screenshot-title">
     <div class="container">
@@ -156,6 +170,8 @@
     </div>
   </section>
 </ScrollReveal>
+
+<SqlDivider sql={SECTION_DIVIDERS.showcaseToSandbox} />
 
 <section class="vdb-showcase" aria-labelledby="vdb-title">
   <div class="container">
@@ -186,63 +202,48 @@
     </ScrollReveal>
 
     <ScrollReveal stagger={0.12}>
-      <div class="vdb-flow">
-        <MagicCard
-          class="vdb-card"
-          glowColor="rgba(138, 216, 251, 0.32)"
-          accentColor="rgba(138, 216, 251, 0.6)"
-          secondaryColor="rgba(43, 180, 238, 0.55)"
-          maxTilt={6}
-        >
+      <ConduitTubes>
+        <MagicCard class="vdb-card" glowColor="rgba(138, 216, 251, 0.32)" accentColor="rgba(138, 216, 251, 0.6)" secondaryColor="rgba(43, 180, 238, 0.55)" maxTilt={6}>
           <div class="vdb-step">
             <div class="vdb-step-num">01</div>
             <h3>Slice</h3>
             <p>Owner picks tables, FK depth, and TTL. Veesker walks the schema graph and stages a coherent extract.</p>
           </div>
         </MagicCard>
-        <div class="vdb-arrow" aria-hidden="true">→</div>
-        <MagicCard
-          class="vdb-card"
-          glowColor="rgba(138, 216, 251, 0.32)"
-          accentColor="rgba(138, 216, 251, 0.6)"
-          secondaryColor="rgba(43, 180, 238, 0.55)"
-          maxTilt={6}
-        >
+        <div class="conduit" aria-hidden="true">
+          <div class="conduit-particle cp-1"></div>
+          <div class="conduit-particle cp-2"></div>
+        </div>
+        <MagicCard class="vdb-card" glowColor="rgba(138, 216, 251, 0.32)" accentColor="rgba(138, 216, 251, 0.6)" secondaryColor="rgba(43, 180, 238, 0.55)" maxTilt={6}>
           <div class="vdb-step">
             <div class="vdb-step-num">02</div>
             <h3>Mask</h3>
             <p>Emails, phone numbers, and identifier columns are auto-detected and masked — hash, redact, static, or partial.</p>
           </div>
         </MagicCard>
-        <div class="vdb-arrow" aria-hidden="true">→</div>
-        <MagicCard
-          class="vdb-card"
-          glowColor="rgba(138, 216, 251, 0.32)"
-          accentColor="rgba(138, 216, 251, 0.6)"
-          secondaryColor="rgba(43, 180, 238, 0.55)"
-          maxTilt={6}
-        >
+        <div class="conduit" aria-hidden="true">
+          <div class="conduit-particle cp-1"></div>
+          <div class="conduit-particle cp-2"></div>
+        </div>
+        <MagicCard class="vdb-card" glowColor="rgba(138, 216, 251, 0.32)" accentColor="rgba(138, 216, 251, 0.6)" secondaryColor="rgba(43, 180, 238, 0.55)" maxTilt={6}>
           <div class="vdb-step">
             <div class="vdb-step-num">03</div>
             <h3>Encrypt</h3>
             <p>Per-recipient X25519 envelopes, ChaCha20-Poly1305 content. Veesker servers never see plaintext.</p>
           </div>
         </MagicCard>
-        <div class="vdb-arrow" aria-hidden="true">→</div>
-        <MagicCard
-          class="vdb-card"
-          glowColor="rgba(138, 216, 251, 0.32)"
-          accentColor="rgba(138, 216, 251, 0.6)"
-          secondaryColor="rgba(43, 180, 238, 0.55)"
-          maxTilt={6}
-        >
+        <div class="conduit" aria-hidden="true">
+          <div class="conduit-particle cp-1"></div>
+          <div class="conduit-particle cp-2"></div>
+        </div>
+        <MagicCard class="vdb-card" glowColor="rgba(138, 216, 251, 0.32)" accentColor="rgba(138, 216, 251, 0.6)" secondaryColor="rgba(43, 180, 238, 0.55)" maxTilt={6}>
           <div class="vdb-step">
             <div class="vdb-step-num">04</div>
             <h3>Open</h3>
             <p>Member pulls, decrypts locally, and runs full SQL on an in-memory DuckDB. Milliseconds, no network.</p>
           </div>
         </MagicCard>
-      </div>
+      </ConduitTubes>
     </ScrollReveal>
 
     <ScrollReveal>
@@ -256,6 +257,8 @@
     </ScrollReveal>
   </div>
 </section>
+
+<SqlDivider sql={SECTION_DIVIDERS.sandboxToFeatures} />
 
 <section class="features">
   <div class="container">
@@ -343,6 +346,8 @@
   </div>
 </section>
 
+<SqlDivider sql={SECTION_DIVIDERS.featuresToPersonas} />
+
 <section class="personas" aria-labelledby="personas-title">
   <div class="container">
     <ScrollReveal clipReveal={true}>
@@ -384,6 +389,8 @@
     </ScrollReveal>
   </div>
 </section>
+
+<SqlDivider sql={SECTION_DIVIDERS.personasToPlatform} />
 
 <section class="platform" aria-labelledby="platform-title">
   <div class="container">
@@ -634,6 +641,8 @@
   </div>
 </section>
 </ScrollReveal>
+
+<SqlDivider sql={SECTION_DIVIDERS.securityToWaitlist} />
 
 <section class="waitlist" id="waitlist" aria-labelledby="waitlist-title">
   <div class="container">
@@ -1097,16 +1106,6 @@
   }
   :global(.persona-wrap .magic-card-tilt),
   :global(.persona-wrap .magic-card-content) {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-  .vdb-flow :global(.vdb-card) {
-    display: flex;
-    flex-direction: column;
-  }
-  .vdb-flow :global(.vdb-card .magic-card-tilt),
-  .vdb-flow :global(.vdb-card .magic-card-content) {
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -1637,15 +1636,6 @@
     color: rgba(245, 241, 232, 0.62);
     text-align: center;
   }
-  .vdb-flow {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
-    gap: 18px;
-    align-items: stretch;
-    max-width: 1100px;
-    margin: 0 auto 36px;
-    text-align: left;
-  }
   .vdb-step {
     border-radius: 11px;
     padding: 22px;
@@ -1673,12 +1663,6 @@
     font-size: 13.5px;
     line-height: 1.6;
     color: rgba(245, 241, 232, 0.78);
-  }
-  .vdb-arrow {
-    align-self: center;
-    font-size: 22px;
-    color: rgba(138, 216, 251, 0.55);
-    font-family: "JetBrains Mono", monospace;
   }
   .vdb-meta {
     display: flex;
@@ -1748,15 +1732,6 @@
     }
     .arrow {
       text-align: center;
-    }
-    .vdb-flow {
-      grid-template-columns: 1fr;
-    }
-    .vdb-arrow {
-      display: block;
-      text-align: center;
-      transform: rotate(90deg);
-      font-size: 18px;
     }
     .vdb-showcase h2 {
       font-size: 30px;
