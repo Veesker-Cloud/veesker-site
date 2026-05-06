@@ -40,8 +40,9 @@
       return;
     }
 
-    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
     const { gsap } = await import("gsap");
+    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+    gsap.registerPlugin(ScrollTrigger);
 
     trigger = ScrollTrigger.create({
       trigger: el,
@@ -70,6 +71,7 @@
 
 <div class="sql-divider" bind:this={el} aria-hidden="true">
   <div class="hairline top"></div>
+  <!-- sql prop is developer-controlled constant; escapeHtml guards & < > -->
   <code class="sql"><span>{@html tokenize(typed)}</span><span class="cursor" class:done></span></code>
   <div class="hairline bottom"></div>
 </div>

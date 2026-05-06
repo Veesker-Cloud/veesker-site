@@ -90,11 +90,11 @@
       animation: none;
       opacity: 1;
     }
-    .spine-particle:nth-child(1) { transform: translateY(20vh); }
-    .spine-particle:nth-child(2) { transform: translateY(35vh); }
-    .spine-particle:nth-child(3) { transform: translateY(50vh); }
-    .spine-particle:nth-child(4) { transform: translateY(65vh); }
-    .spine-particle:nth-child(5) { transform: translateY(80vh); }
-    .spine-particle:nth-child(n+6) { display: none; }
+    .spine-particle:nth-child(3) { transform: translateY(20vh); }
+    .spine-particle:nth-child(4) { transform: translateY(35vh); }
+    .spine-particle:nth-child(5) { transform: translateY(50vh); }
+    .spine-particle:nth-child(6) { transform: translateY(65vh); }
+    .spine-particle:nth-child(7) { transform: translateY(80vh); }
+    .spine-particle:nth-child(n+8) { display: none; }
   }
 </style>
