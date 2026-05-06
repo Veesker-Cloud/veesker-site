@@ -22,48 +22,60 @@
   let trigger: { kill: () => void } | undefined;
 
   onMount(async () => {
-    const { gsap } = await import("gsap");
-    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+    try {
+      const { gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
 
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    const d = prefersReduced ? 0 : duration;
-    const s = prefersReduced ? 0 : stagger;
-    const targets = stagger > 0 ? Array.from(el.children) : [el];
+      const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+      const d = prefersReduced ? 0 : duration;
+      const s = prefersReduced ? 0 : stagger;
+      const targets = stagger > 0 ? Array.from(el.children) : [el];
 
-    if (clipReveal) {
-      gsap.set(targets, { clipPath: "inset(100% 0 0 0)", y: 14, opacity: 0 });
-      trigger = ScrollTrigger.create({
-        trigger: el,
-        start: "top 88%",
-        once: true,
-        onEnter: () =>
-          gsap.to(targets, {
-            clipPath: "inset(0% 0 0 0)",
-            y: 0,
-            opacity: 1,
-            duration: d,
-            stagger: s,
-            delay,
-            ease: "power3.out",
-          }),
-      });
-    } else {
-      gsap.set(targets, { y: prefersReduced ? 0 : y, opacity: 0 });
-      trigger = ScrollTrigger.create({
-        trigger: el,
-        start: "top 88%",
-        once: true,
-        onEnter: () =>
-          gsap.to(targets, {
-            y: 0,
-            opacity: 1,
-            duration: d,
-            stagger: s,
-            delay,
-          }),
-      });
+      if (clipReveal) {
+        gsap.set(targets, { clipPath: "inset(100% 0 0 0)", y: 14, opacity: 0 });
+        trigger = ScrollTrigger.create({
+          trigger: el,
+          start: "top 88%",
+          once: true,
+          onEnter: () =>
+            gsap.to(targets, {
+              clipPath: "inset(0% 0 0 0)",
+              y: 0,
+              opacity: 1,
+              duration: d,
+              stagger: s,
+              delay,
+              ease: "power3.out",
+            }),
+        });
+      } else {
+        gsap.set(targets, { y: prefersReduced ? 0 : y, opacity: 0 });
+        trigger = ScrollTrigger.create({
+          trigger: el,
+          start: "top 88%",
+          once: true,
+          onEnter: () =>
+            gsap.to(targets, {
+              y: 0,
+              opacity: 1,
+              duration: d,
+              stagger: s,
+              delay,
+            }),
+        });
+      }
+    } catch {
+      // GSAP failed to load — ensure content is visible
+      if (el) {
+        (el as HTMLElement).style.opacity = "1";
+        (el as HTMLElement).style.transform = "none";
+        for (const child of Array.from(el.children)) {
+          (child as HTMLElement).style.opacity = "1";
+          (child as HTMLElement).style.transform = "none";
+        }
+      }
     }
   });
 
