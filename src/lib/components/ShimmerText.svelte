@@ -42,7 +42,11 @@
     background-clip: text;
     color: transparent;
     animation: shimmer var(--shimmer-dur) linear infinite;
-    display: inline-block;
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
   @keyframes shimmer {
     from {

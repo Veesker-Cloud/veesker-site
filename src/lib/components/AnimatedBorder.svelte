@@ -24,6 +24,7 @@
   class="anim-border-wrap {className}"
   style="--speed:{speed};--radius:{borderRadius};--pad:{padding};"
 >
+  <div class="anim-border-spin" aria-hidden="true"></div>
   <div
     class="anim-border-inner {innerClass}"
     style="background:{innerBg};border-radius:calc(var(--radius) - var(--pad));"
@@ -33,17 +34,22 @@
 </div>
 
 <style>
-  @property --angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
-
   .anim-border-wrap {
+    position: relative;
     border-radius: var(--radius);
     padding: var(--pad);
+    overflow: hidden;
+    isolation: isolate;
+    background: rgba(20, 17, 14, 0.6);
+  }
+
+  .anim-border-spin {
+    position: absolute;
+    inset: -100%;
+    z-index: 0;
+    pointer-events: none;
     background: conic-gradient(
-      from var(--angle),
+      from 0deg,
       rgba(249, 115, 22, 0.85),
       rgba(138, 216, 251, 0.75),
       rgba(196, 92, 8, 0.65),
@@ -53,32 +59,28 @@
   }
 
   @keyframes spin-border {
+    from {
+      transform: rotate(0deg);
+    }
     to {
-      --angle: 360deg;
+      transform: rotate(360deg);
     }
   }
 
   .anim-border-inner {
+    position: relative;
+    z-index: 1;
     height: 100%;
     width: 100%;
   }
 
-  @supports not (background: conic-gradient(from 0deg, red, blue)) {
-    .anim-border-wrap {
-      background: none;
-      border: 1px solid rgba(249, 115, 22, 0.4);
-      padding: 0;
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .anim-border-wrap {
+    .anim-border-spin {
       animation: none;
-      background: conic-gradient(
-        from 45deg,
+      background: linear-gradient(
+        135deg,
         rgba(249, 115, 22, 0.6),
         rgba(138, 216, 251, 0.5),
-        rgba(196, 92, 8, 0.5),
         rgba(249, 115, 22, 0.6)
       );
     }
