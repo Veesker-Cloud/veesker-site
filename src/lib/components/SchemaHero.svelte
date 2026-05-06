@@ -112,6 +112,19 @@
     --mx-back: 0px;  --my-back: 0px;
     --mx-mid: 0px;   --my-mid: 0px;
     --mx-front: 0px; --my-front: 0px;
+    /* Clear center so FK lines don't overlap the h1/CTAs */
+    mask-image: radial-gradient(
+      ellipse 34% 38% at 50% 50%,
+      transparent 0%,
+      transparent 42%,
+      black 74%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 34% 38% at 50% 50%,
+      transparent 0%,
+      transparent 42%,
+      black 74%
+    );
   }
 
   .tab {
