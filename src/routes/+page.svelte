@@ -1678,6 +1678,7 @@
     flex-direction: column;
     gap: 10px;
     align-items: center;
+    margin-top: 32px;
   }
   .vdb-pill {
     display: inline-flex;
