@@ -6,7 +6,7 @@
 
   type TableDef = { name: string; cols: string; layer: "back" | "mid" | "front"; pos: string; warm: boolean };
   type PulseDef = { delay: number; duration: number; warm: boolean };
-  type FkLine  = { from: { x: number; y: number }; warm: boolean; width: number; top: number; rotate?: number; pulse?: PulseDef };
+  type FkLine  = { x: number; fromRight?: boolean; top: number; height: number; warm: boolean; pulse?: PulseDef };
 
   const tables: TableDef[] = [
     { name: "EMPLOYEES",  cols: "id, role, hired",  layer: "back",  pos: "top: 6%; left: 4%;",      warm: true  },
@@ -21,15 +21,18 @@
     { name: "ORDERS",     cols: "id, total, ts",    layer: "front", pos: "top: 38%; right: 2%;",    warm: false },
   ];
 
+  // Vertical FK lines connecting left-column tables (warm) and right-column tables (cool)
   const fkLines: FkLine[] = [
-    { from: { x: 18, y: 12 }, warm: true,  width: 64, top: 12, pulse: { delay: 0,   duration: 3.2, warm: true  } },
-    { from: { x: 22, y: 28 }, warm: true,  width: 56, top: 28 },
-    { from: { x: 24, y: 42 }, warm: false, width: 52, top: 42, pulse: { delay: 0.8, duration: 4.0, warm: false } },
-    { from: { x: 26, y: 58 }, warm: true,  width: 32, top: 50, rotate: -28 },
-    { from: { x: 50, y: 42 }, warm: false, width: 32, top: 50, rotate:  28 },
-    { from: { x: 18, y: 76 }, warm: true,  width: 64, top: 76, pulse: { delay: 1.6, duration: 3.6, warm: true  } },
-    { from: { x: 24, y: 90 }, warm: false, width: 52, top: 90 },
-    { from: { x: 30, y: 60 }, warm: false, width: 40, top: 60, pulse: { delay: 2.4, duration: 4.4, warm: false } },
+    // Left side — EMPLOYEES → LINE_ITEMS → CUSTOMERS → INVOICES → INVENTORY
+    { x: 8,  top: 10, height: 12, warm: true,  pulse: { delay: 0,   duration: 3.2, warm: true  } },
+    { x: 7,  top: 26, height: 12, warm: true  },
+    { x: 8,  top: 42, height: 28, warm: true,  pulse: { delay: 1.6, duration: 3.6, warm: true  } },
+    { x: 9,  top: 74, height: 12, warm: true  },
+    // Right side — ADDRESSES → PRODUCTS → ORDERS → PAYMENTS → SHIPMENTS
+    { x: 8,  fromRight: true, top: 12, height: 12, warm: false, pulse: { delay: 0.8, duration: 4.0, warm: false } },
+    { x: 7,  fromRight: true, top: 28, height: 10, warm: false },
+    { x: 8,  fromRight: true, top: 42, height: 28, warm: false, pulse: { delay: 2.4, duration: 4.4, warm: false } },
+    { x: 9,  fromRight: true, top: 74, height: 12, warm: false },
   ];
 
   onMount(() => {
@@ -84,7 +87,7 @@
   {#each fkLines as line}
     <div
       class="fk-line {line.warm ? 'warm' : 'cool'}"
-      style="top: {line.top}%; left: {line.from.x}%; width: {line.width}%;{line.rotate ? ` transform: rotate(${line.rotate}deg); transform-origin: left center;` : ''}"
+      style="top: {line.top}%; {line.fromRight ? `right: ${line.x}%` : `left: ${line.x}%`}; height: {line.height}%;"
     >
       {#if line.pulse}
         <div
@@ -112,19 +115,6 @@
     --mx-back: 0px;  --my-back: 0px;
     --mx-mid: 0px;   --my-mid: 0px;
     --mx-front: 0px; --my-front: 0px;
-    /* Clear center so FK lines don't overlap the h1/CTAs */
-    mask-image: radial-gradient(
-      ellipse 34% 38% at 50% 50%,
-      transparent 0%,
-      transparent 42%,
-      black 74%
-    );
-    -webkit-mask-image: radial-gradient(
-      ellipse 34% 38% at 50% 50%,
-      transparent 0%,
-      transparent 42%,
-      black 74%
-    );
   }
 
   .tab {
@@ -154,25 +144,23 @@
 
   .fk-line {
     position: absolute;
-    height: 1px;
+    width: 1px;
     pointer-events: none;
-    transform-origin: left center;
-    overflow: visible;
   }
-  .fk-line.warm { background: linear-gradient(to right, rgba(253, 186, 116, 0.05), rgba(253, 186, 116, 0.5), rgba(253, 186, 116, 0.05)); }
-  .fk-line.cool { background: linear-gradient(to right, rgba(138, 216, 251, 0.05), rgba(138, 216, 251, 0.5), rgba(138, 216, 251, 0.05)); }
+  .fk-line.warm { background: linear-gradient(to bottom, rgba(253, 186, 116, 0.05), rgba(253, 186, 116, 0.5), rgba(253, 186, 116, 0.05)); }
+  .fk-line.cool { background: linear-gradient(to bottom, rgba(138, 216, 251, 0.05), rgba(138, 216, 251, 0.5), rgba(138, 216, 251, 0.05)); }
 
-  /* Pulse lives inside its FK line — left % is relative to line width */
+  /* Pulse travels top → bottom along the vertical FK line */
   .pulse {
     position: absolute;
-    top: 50%;
-    left: 0;
+    left: 50%;
+    top: 0;
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    transform: translateY(-50%);
+    transform: translateX(-50%);
     pointer-events: none;
-    will-change: left, opacity;
+    will-change: top, opacity;
     animation-name: pulse-travel;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -181,10 +169,10 @@
   .pulse.cool { background: #9ce2ff; box-shadow: 0 0 10px rgba(156, 226, 255, 0.95); }
 
   @keyframes pulse-travel {
-    0%   { left: 0;                  opacity: 0; }
-    8%   {                           opacity: 1; }
-    92%  {                           opacity: 1; }
-    100% { left: calc(100% - 5px);  opacity: 0; }
+    0%   { top: 0;                 opacity: 0; }
+    8%   {                          opacity: 1; }
+    92%  {                          opacity: 1; }
+    100% { top: calc(100% - 5px); opacity: 0; }
   }
 
   @media (max-width: 767px) {
@@ -193,7 +181,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .pulse { animation: none; opacity: 1; left: calc(50% - 2.5px); }
+    .pulse { animation: none; opacity: 1; top: calc(50% - 2.5px); }
     .tab   { transform: none !important; will-change: auto; }
   }
 </style>
