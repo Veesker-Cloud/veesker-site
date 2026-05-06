@@ -200,7 +200,6 @@
   /* Mobile: drop the back layer entirely; reduce density */
   @media (max-width: 767px) {
     .tab--back { display: none; }
-    .tab--mid:nth-of-type(odd) { display: none; }
     .fk-line:nth-of-type(n+5) { display: none; }
     .pulse:nth-of-type(n+2) { display: none; }
     .schema-hero { opacity: 0.6; }
