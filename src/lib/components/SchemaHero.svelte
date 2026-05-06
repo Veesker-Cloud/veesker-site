@@ -40,7 +40,6 @@
   ];
 
   onMount(() => {
-    if (typeof window === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     // Mouse parallax: nudge layers ~5px max
@@ -94,7 +93,7 @@
 
 <div class="schema-hero" bind:this={el} aria-hidden="true">
   <!-- FK lines first so tables sit on top -->
-  {#each fkLines as line, i}
+  {#each fkLines as line}
     <div
       class="fk-line {line.warm ? 'warm' : 'cool'}"
       style="top: {line.top}%; left: {line.from.x}%; width: {line.width}%; {line.rotate ? `transform: rotate(${line.rotate}deg); transform-origin: left center;` : ''}"
@@ -185,7 +184,7 @@
   }
   .pulse.warm { background: #fdba74; box-shadow: 0 0 10px rgba(253, 186, 116, 0.95); }
   .pulse.cool { background: #9ce2ff; box-shadow: 0 0 10px rgba(156, 226, 255, 0.95); }
-  .schema-hero--active .pulse {
+  :global(.schema-hero--active) .pulse {
     animation-name: pulse-travel;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -200,13 +199,11 @@
   /* Mobile: drop the back layer entirely; reduce density */
   @media (max-width: 767px) {
     .tab--back { display: none; }
-    .fk-line:nth-of-type(n+5) { display: none; }
-    .pulse:nth-of-type(n+2) { display: none; }
     .schema-hero { opacity: 0.6; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .schema-hero--active .pulse {
+    :global(.schema-hero--active) .pulse {
       animation: none;
       opacity: 1;
       transform: translate(calc(var(--travel-distance) * 0.5), -50%);
