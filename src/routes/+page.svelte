@@ -10,6 +10,8 @@
   import MagicCard from "$lib/components/MagicCard.svelte";
   import MagneticButton from "$lib/components/MagneticButton.svelte";
   import GridBeams from "$lib/components/GridBeams.svelte";
+  import PipelineSpine from "$lib/components/PipelineSpine.svelte";
+  import SchemaHero from "$lib/components/SchemaHero.svelte";
   import TextSplit from "$lib/components/TextSplit.svelte";
 
   let activeLayer = $state<"community" | "cloud" | null>(null);
@@ -66,7 +68,10 @@
   path="/"
 />
 
+<PipelineSpine />
+
 <section class="hero">
+  <SchemaHero />
   <AuroraBackground speed={0.9} intensity={0.26} />
   <MeteorShower count={8} />
   <div class="container hero-inner" style="position:relative;z-index:2;">
@@ -743,6 +748,12 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+
+  /* Ensure all sections sit above the fixed PipelineSpine (z-index: 0) */
+  section {
+    position: relative;
+    z-index: 1;
   }
 
   .hero {
