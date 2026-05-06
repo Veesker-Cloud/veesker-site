@@ -52,13 +52,13 @@
     background: #9ce2ff;
     box-shadow: 0 0 12px rgba(156, 226, 255, 0.95), 0 0 20px rgba(43, 180, 238, 0.5);
     transform: translateY(-50%);
-    animation: conduit-flow 2s linear infinite;
+    animation: vsk-conduit-flow 2s linear infinite;
     will-change: left, opacity;
   }
   :global(.conduit-row > .conduit > .conduit-particle.cp-2) {
     animation-delay: -1s;
   }
-  @keyframes conduit-flow {
+  @keyframes vsk-conduit-flow {
     0%   { left: 4px;                 opacity: 0; }
     8%   {                            opacity: 1; }
     92%  {                            opacity: 1; }

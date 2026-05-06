@@ -126,7 +126,7 @@
     animation: cursor-blink 1s steps(2) infinite;
   }
   .cursor::before { content: "▍"; }
-  .cursor.done { animation-iteration-count: 0; opacity: 0.7; }
+  .cursor.done { animation: none; opacity: 0.7; }
   @keyframes cursor-blink {
     50% { opacity: 0; }
   }

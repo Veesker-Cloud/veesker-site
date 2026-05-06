@@ -38,7 +38,7 @@
     sandboxToFeatures:  "SELECT name FROM dba_features WHERE released = 'Y';",
     featuresToPersonas: "SELECT role, COUNT(*) FROM dba_users GROUP BY role;",
     personasToPlatform: "SELECT edition, version FROM v$instance;",
-    securityToWaitlist: "INSERT INTO waitlist (email, signed_up_at) VALUES (?, SYSDATE);",
+    securityToWaitlist: "INSERT INTO waitlist (email, signed_up_at) VALUES (:email, SYSDATE);",
   } as const;
 
   let waitlistEmail = $state("");

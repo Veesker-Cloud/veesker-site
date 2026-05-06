@@ -145,6 +145,8 @@
     padding: 4px 6px 3px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+  }
+  :global(.schema-hero--active) .tab {
     will-change: transform;
   }
   .tab small {
