@@ -84,7 +84,7 @@ Read these before drafting — new posts should feel like a continuation:
 
 ## Publish checklist (every run)
 
-The repo is cloned automatically into your working directory. Use **relative paths** — there are no absolute Windows paths. There is **no `wrangler deploy` step** — pushing to main triggers `.github/workflows/deploy.yml` which deploys to Cloudflare Workers automatically.
+The repo is cloned automatically into your working directory. Use **relative paths** — there are no absolute Windows paths. Open a PR labeled `blog-draft`. The PR triggers `.github/workflows/blog-draft-email.yml` which sends an approval email to the Veesker team. Merging the PR triggers `.github/workflows/deploy.yml` and deploys to Cloudflare Workers. Do **not** push directly to `main` — drafts must go through PR review.
 
 1. `cd` to the repo root if not already there.
 2. `git remote -v` to confirm the clone.
@@ -100,17 +100,25 @@ The repo is cloned automatically into your working directory. Use **relative pat
    ```
    This produces `static/blog/<en-slug>.png` (Pollinations.ai 1200×630 + Veesker logo overlay via Sharp). Both EN and PT posts share the same image — set `hero: "/blog/<en-slug>.png"` in both frontmatters.
 10. `bun run build`. The build MUST pass. If it fails, fix the markdown (likely frontmatter or YAML escaping) and retry up to 2 times. Never commit broken builds.
-11. `git add src/posts/ static/blog/ BLOG_AGENT_BRIEF.md && git commit -m "post(blog): <title> (EN+PT)"` — single commit, all files.
-12. `git push origin main`.
-13. Print final-status line: `TEST RUN OK: <commit-sha-short> <slug>` on success, or `TEST RUN FAILED: <reason>` on failure.
+11. Create a feature branch: `git checkout -b "auto/blog/$(date -u +%Y-%m-%d)-<en-slug>"`
+12. `git add src/posts/ static/blog/ BLOG_AGENT_BRIEF.md && git commit -m "post(blog): <title> (EN+PT)"` — single commit, all files.
+13. Push the branch: `git push origin HEAD`.
+14. Open the PR with the `blog-draft` label:
+    ```bash
+    gh pr create --base main --label blog-draft \
+      --title "post(blog): <title> (EN+PT)" \
+      --body "<short summary + frontmatter excerpt of EN post>"
+    ```
+15. Print final-status line: `TEST RUN OK: PR #<n> <slug>` on success, or `TEST RUN FAILED: <reason>` on failure.
 
-The push automatically triggers `.github/workflows/deploy.yml` (wrangler deploy to Cloudflare Workers). Within ~60s, `https://veesker.cloud/blog/<slug>` is live.
+Once approved by the Veesker team, the merge to `main` triggers `.github/workflows/deploy.yml` (wrangler deploy to Cloudflare Workers). Within ~60s, `https://veesker.cloud/blog/<slug>` is live.
 
 ## Failure handling
 
 - **Image generation fails:** Pollinations.ai rate-limits or returns non-PNG. Retry once with a different seed (`--seed 42`). If still fails, set `hero` to `"/datamap-hero.png"` (existing fallback) — never abort the post over an image.
 - **Build fails:** Do NOT commit. Investigate the error, fix the markdown, retry up to 2 times. After 2 failed retries, abort with reason.
-- **`git push` fails:** `git pull --rebase origin main` once, retry once. If still failing, abort. **Never force-push.**
+- **`git push` of feature branch fails:** retry once. If still failing, abort with reason. **Never force-push.**
+- **`gh pr create` fails:** the branch was pushed but the PR did not open. Print `TEST RUN FAILED: branch pushed but gh pr create failed — open PR manually from <branch>`. Do not retry blindly.
 - **Topic queue exhausted:** Write a short retrospective on the most recent shipped feature instead. DO refill the queue before exiting.
 
 ## Reminders that show up in every post
@@ -119,4 +127,4 @@ Every post should somewhere reflect (without sounding inserted):
 - Veesker is local-first by design — desktop app does not phone home.
 - Community Edition is Apache 2.0; Cloud is the optional managed layer.
 - Cloud lands H2 2026; founder pricing $29 USD/seat/month locked for waitlist members.
-- Posts are auto-published by a Claude agent (banner already shows that).
+- Posts are auto-drafted by a Claude agent and reviewed by the Veesker team before publication — see `/editorial`.
