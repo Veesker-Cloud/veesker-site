@@ -70,7 +70,7 @@ When the queue gets low (≤3 unchecked of either kind), append 2-3 new ideas be
 - [x] Local-first developer tools: a manifesto for Oracle teams
 - [ ] The Oracle DBA is not going extinct, they are getting tools worthy of the job
 - [ ] Why "AI for SQL" is mostly a UX problem, not a model problem
-- [ ] Stop asking your LLM to invent schemas. Ground it.
+- [x] Stop asking your LLM to invent schemas. Ground it.
 - [ ] The case against subscription-only IDEs in 2026
 - [ ] Open-source as a hiring filter: build the tool the senior dev would download
 - [ ] You don't have a query problem, you have a context problem
