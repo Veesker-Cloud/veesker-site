@@ -7,18 +7,6 @@
   let { data } = $props();
   const Component = $derived(data.Component);
   const md = $derived(data.metadata);
-
-  function bannerLabel(lang: string): string {
-    return lang === "pt"
-      ? "Conteúdo gerado por IA, revisado pelo time Veesker"
-      : "AI-generated content, reviewed by the Veesker team";
-  }
-
-  function bannerDetail(lang: string): string {
-    return lang === "pt"
-      ? "Posts deste blog são escritos por um agente Claude e revisados pelo time Veesker antes da publicação. Erros ou imprecisões ainda podem passar — se notar algo, abra uma issue no GitHub."
-      : "Posts on this blog are written by a Claude agent and reviewed by the Veesker team before publication. Errors or inaccuracies may still slip through — if you spot one, open an issue on GitHub.";
-  }
 </script>
 
 <Seo
@@ -53,19 +41,6 @@
             <span class="tag">#{t}</span>
           {/each}
         </div>
-
-        <aside class="transparency-banner" aria-label="Authorship transparency">
-          <div class="banner-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="7" width="18" height="13" rx="2"/>
-              <path d="M9 7V4a3 3 0 0 1 6 0v3M8 13h.01M12 13h.01M16 13h.01"/>
-            </svg>
-          </div>
-          <div class="banner-text">
-            <div class="banner-label">{bannerLabel(md.lang)}</div>
-            <p class="banner-detail">{bannerDetail(md.lang)}</p>
-          </div>
-        </aside>
       </div>
     </header>
   </ScrollReveal>
@@ -98,6 +73,8 @@
           ? "Veesker publica neste blog 2× por semana — segundas (aprofundamento) e quintas (manifesto). Cada post sai em EN e PT-BR."
           : "Veesker publishes here 2× a week — Mondays (deep-dive) and Thursdays (manifesto). Every post ships in EN and PT-BR."}
         <a href="/blog">{md.lang === "pt" ? "Ver todos os posts →" : "See all posts →"}</a>
+        <span class="sep" aria-hidden="true">·</span>
+        <a href="/editorial">{md.lang === "pt" ? "Como produzimos este conteúdo →" : "How we produce this content →"}</a>
       </p>
     </div>
   </footer>
@@ -191,46 +168,6 @@
     background: rgba(245, 241, 232, 0.05);
     padding: 2px 8px;
     border-radius: 4px;
-  }
-
-  .transparency-banner {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    margin-top: 28px;
-    padding: 16px 18px;
-    border-radius: 10px;
-    background: linear-gradient(165deg, rgba(43, 180, 238, 0.10), rgba(43, 180, 238, 0.03));
-    border: 1px solid rgba(138, 216, 251, 0.35);
-  }
-  .banner-icon {
-    flex: 0 0 auto;
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: #9ce2ff;
-    background: rgba(43, 180, 238, 0.14);
-    border: 1px solid rgba(138, 216, 251, 0.36);
-  }
-  .banner-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-  .banner-label {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    margin-bottom: 4px;
-    color: #cfeeff;
-  }
-  .banner-detail {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 12.5px;
-    line-height: 1.6;
   }
 
   .post-hero {
@@ -367,6 +304,11 @@
   }
   .auto-note a {
     color: var(--accent-text);
+  }
+  .auto-note .sep {
+    margin: 0 6px;
+    color: var(--text-muted);
+    opacity: 0.5;
   }
 
   @media (max-width: 720px) {
