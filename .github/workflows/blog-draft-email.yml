@@ -1,0 +1,57 @@
+name: Notify blog draft for review
+
+on:
+  pull_request:
+    types: [opened, reopened, labeled]
+
+permissions:
+  pull-requests: read
+  contents: read
+
+jobs:
+  notify:
+    if: contains(github.event.pull_request.labels.*.name, 'blog-draft')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Send draft notification to api
+        env:
+          API_URL: https://api.veesker.cloud/v1/blog/draft
+          API_SECRET: ${{ secrets.BLOG_DRAFT_API_SECRET }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: |
+          set -euo pipefail
+          if [ -z "${API_SECRET:-}" ]; then
+            echo "::error::BLOG_DRAFT_API_SECRET not set in repo secrets"
+            exit 1
+          fi
+          body=$(jq -nc \
+            --argjson n "$PR_NUMBER" \
+            --arg url "$PR_URL" \
+            --arg title "$PR_TITLE" \
+            --arg desc "${PR_BODY:-}" \
+            --arg branch "$PR_BRANCH" \
+            --arg author "$PR_AUTHOR" \
+            '{pr_number:$n, pr_url:$url, pr_title:$title, pr_body:$desc, branch:$branch, author:$author}')
+          sig="sha256=$(printf '%s' "$body" | openssl dgst -sha256 -hmac "$API_SECRET" | awk '{print $2}')"
+          for i in 1 2; do
+            code=$(curl -sS -o /tmp/resp -w '%{http_code}' \
+              -X POST "$API_URL" \
+              -H "Content-Type: application/json" \
+              -H "X-Signature: $sig" \
+              --data "$body") || true
+            if [ "$code" = "200" ]; then
+              echo "draft notification sent (PR #$PR_NUMBER)"
+              exit 0
+            fi
+            echo "::warning::attempt $i: api returned $code"
+            cat /tmp/resp || true
+            sleep 5
+          done
+          echo "::error::failed to notify api after 2 attempts"
+          exit 1
