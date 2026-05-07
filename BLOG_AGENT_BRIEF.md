@@ -67,7 +67,7 @@ When the queue gets low (≤3 unchecked of either kind), append 2-3 new ideas be
 
 ### Manifestos (Thursday)
 
-- [ ] Local-first developer tools: a manifesto for Oracle teams
+- [x] Local-first developer tools: a manifesto for Oracle teams
 - [ ] The Oracle DBA is not going extinct, they are getting tools worthy of the job
 - [ ] Why "AI for SQL" is mostly a UX problem, not a model problem
 - [ ] Stop asking your LLM to invent schemas. Ground it.
