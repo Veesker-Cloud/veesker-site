@@ -10,14 +10,14 @@
 
   function bannerLabel(lang: string): string {
     return lang === "pt"
-      ? "Escrito e publicado por um agente Claude"
-      : "Written and published by a Claude agent";
+      ? "Conteúdo gerado por IA, revisado pelo time Veesker"
+      : "AI-generated content, reviewed by the Veesker team";
   }
 
   function bannerDetail(lang: string): string {
     return lang === "pt"
-      ? "Posts deste blog são gerados e publicados automaticamente por um agente Claude rodando em cron semanal. Sem revisão humana entre o draft e a publicação. Podem conter erros, imprecisões ou afirmações desatualizadas — não são fonte autoritativa."
-      : "Posts on this blog are written and published automatically by a Claude agent running on a weekly cron. No human review between draft and publish. They may contain errors, inaccuracies, or outdated claims — not an authoritative source.";
+      ? "Posts deste blog são escritos por um agente Claude e revisados pelo time Veesker antes da publicação. Erros ou imprecisões ainda podem passar — se notar algo, abra uma issue no GitHub."
+      : "Posts on this blog are written by a Claude agent and reviewed by the Veesker team before publication. Errors or inaccuracies may still slip through — if you spot one, open an issue on GitHub.";
   }
 </script>
 
