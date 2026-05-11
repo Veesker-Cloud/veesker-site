@@ -12,10 +12,37 @@
   };
 
   // Newest first. Manually curated — bumped on each meaningful release.
+  // Dates match actual git tag commit dates (verified against git log --tags).
   const releases: Release[] = [
     {
+      version: "v0.5.0-beta.1",
+      date: "2026-05-11",
+      title: "Phase 1 complete — Schema browser, safety gates, HMAC audit chain",
+      tag: "feature",
+      highlights: [
+        "Safety gates for PROD work — workspace classification (DEV/STAGING/PROD), confirmation prompts on destructive operations, DDL preview, session-level guardrails.",
+        "Complete schema browser — tables, views, sequences, procedures, functions, packages, triggers, types, plus per-schema vector indicator (Oracle 23ai).",
+        "HMAC-chained audit log — every action recorded with cryptographic chain (tamper-evident). Local-only, no telemetry.",
+        "Table inspector — columns, indexes, related objects (FKs, dependents, constraints, grants), DataFlow graph with PL/SQL body scans.",
+        "Multi-platform builds — Windows NSIS, macOS arm64 (Apple Silicon), Linux deb/rpm.",
+        "Ed25519-signed auto-updater — future releases will install automatically.",
+      ],
+    },
+    {
+      version: "v0.2.5",
+      date: "2026-04-27",
+      title: "Wallet hardening + cancel/execute fix",
+      tag: "fix",
+      highlights: [
+        "Oracle Wallet file size cap (1MB) — prevent accidental upload of database dumps mistaken for wallet bundles.",
+        "Cancel-vs-execute race condition fixed — query cancellation no longer triggers spurious execute on retry.",
+        "Squashfs-tools added to Linux CI for AppImage bundle integrity.",
+        "tauri.conf.json BOM removed — fixes Windows build edge case.",
+      ],
+    },
+    {
       version: "v0.2.4",
-      date: "2026-05-02",
+      date: "2026-04-27",
       title: "Site refresh + Cloud waitlist backend + Sandbox Plan 5b (preview, not yet released)",
       tag: "feature",
       highlights: [
@@ -26,7 +53,7 @@
     },
     {
       version: "v0.2.3",
-      date: "2026-05-01",
+      date: "2026-04-26",
       title: "Sandbox Plan 4 — member open flow + Plan 3 BYOC published",
       tag: "feature",
       highlights: [
@@ -38,7 +65,7 @@
     },
     {
       version: "v0.2.2",
-      date: "2026-04-30",
+      date: "2026-04-26",
       title: "Comprehensive security audit — 16 findings resolved",
       tag: "security",
       highlights: [
@@ -61,7 +88,7 @@
     },
     {
       version: "v0.2.0",
-      date: "2026-04-25",
+      date: "2026-04-26",
       title: "First public release — veesker.cloud LIVE",
       tag: "milestone",
       highlights: [
