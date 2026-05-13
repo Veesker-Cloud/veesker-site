@@ -1,6 +1,6 @@
 ---
 title: "Going fully open: one repo, one binary, all source public"
-description: "The private Cloud Edition repository is being archived. All Veesker code — including premium features — is now in the public Apache 2.0 repository. A subscription still unlocks premium capabilities at runtime, but the source for every feature is public."
+description: "The private Cloud Edition repository has been archived. All Veesker code — including premium features — is now in the public Apache 2.0 repository. A subscription still unlocks premium capabilities at runtime, but the source for every feature is public."
 date: "2026-05-13"
 slug: "going-fully-open"
 lang: "en"
@@ -23,7 +23,7 @@ Veesker's pitch to DBAs and Oracle engineers is that it is trustworthy. It has a
 
 ## What changed
 
-As of 2026-05-13, the private `veesker-cloud-edition` repository is being archived. All of its code is migrating into the public [`veesker-community-edition`](https://github.com/Veesker-Cloud/veesker-community-edition) repository.
+As of 2026-05-13, the private `veesker-cloud-edition` repository has been archived. All of its code has been merged into the public [`veesker-community-edition`](https://github.com/Veesker-Cloud/veesker-community-edition) repository.
 
 There is now one repository. One binary. One Apache 2.0 codebase.
 
@@ -37,7 +37,7 @@ This is the Docker model. Docker Engine is open source. Docker Desktop is open s
 
 **If you are a paid subscriber:** nothing changes in practice. Your subscription still unlocks the same premium features. The entitlement flow (authenticate → receive feature flag → features activate) works identically. The feature code is now open, which means you can audit exactly what you are paying to unlock.
 
-**If you were watching the CL repo:** use the CE repo going forward. The CL repo will remain archived for historical reference but receives no new commits.
+**If you were watching the CL repo:** use the CE repo going forward. The CL repo remains archived for historical reference and receives no new commits.
 
 ## On internal docs
 
