@@ -3,7 +3,7 @@
   import ShimmerText from "$lib/components/ShimmerText.svelte";
   import ScrollReveal from "$lib/components/ScrollReveal.svelte";
 
-  const RELEASE = "0.5.0-beta.1";
+  const RELEASE = "0.5.0-beta.2";
   const BASE = `https://github.com/veesker-cloud/veesker-community-edition/releases/download/v${RELEASE}`;
   const RELEASE_URL = `https://github.com/veesker-cloud/veesker-community-edition/releases/tag/v${RELEASE}`;
 </script>
