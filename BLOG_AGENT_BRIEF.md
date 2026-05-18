@@ -57,7 +57,7 @@ When the queue gets low (≤3 unchecked of either kind), append 2-3 new ideas be
 - [x] Oracle 9i to 26ai in one binary — Thick mode auto-discovery explained
 - [x] Schema-aware AI: why generic LLMs fail at PL/SQL (CONNECT BY, MERGE, hints, bind vars)
 - [x] Sharing production data without leaking it: VeeskerDB Sandbox internals (X25519 + ChaCha20)
-- [ ] Migrating legacy PL/SQL packages to APEX 24.x — a field guide
+- [x] Migrating legacy PL/SQL packages to APEX 24.x — a field guide
 - [ ] EXPLAIN PLAN as a feedback loop for AI tuning
 - [ ] Building Oracle 23ai vector RAG: from embeddings to ORDS endpoints
 - [ ] Why we picked Tauri 2 over Electron for an Oracle IDE
