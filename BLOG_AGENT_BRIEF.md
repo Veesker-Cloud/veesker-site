@@ -72,7 +72,7 @@ When the queue gets low (≤3 unchecked of either kind), append 2-3 new ideas be
 - [x] Why "AI for SQL" is mostly a UX problem, not a model problem
 - [x] Stop asking your LLM to invent schemas. Ground it.
 - [x] The case against subscription-only IDEs in 2026
-- [ ] Open-source as a hiring filter: build the tool the senior dev would download
+- [x] Open-source as a hiring filter: build the tool the senior dev would download
 - [ ] You don't have a query problem, you have a context problem
 - [ ] What "good" looks like for a database IDE in 2026
 - [ ] The pricing transparency test: why "contact sales" is the wrong answer for a developer tool
