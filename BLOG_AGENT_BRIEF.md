@@ -62,7 +62,7 @@ When the queue gets low (≤3 unchecked of either kind), append 2-3 new ideas be
 - [x] Building Oracle 23ai vector RAG: from embeddings to ORDS endpoints
 - [x] Why we picked Tauri 2 over Electron for an Oracle IDE
 - [x] Per-connection safety: env tags, read-only mode, statement timeouts, unsafe-DML guards
-- [ ] Auto-documenting 1000 PL/SQL packages overnight — design notes
+- [x] Auto-documenting 1000 PL/SQL packages overnight — design notes
 - [ ] Bind variables vs string concatenation: still relevant in the LLM era
 - [ ] How Veesker handles Oracle wallet files: OCI, mTLS, and the cloud connection story
 - [ ] Writing a schema-aware PL/SQL formatter: rules you can't get from a generic linter
