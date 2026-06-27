@@ -78,7 +78,7 @@ When the queue gets low (≤3 unchecked of either kind), append 2-3 new ideas be
 - [x] Open-source as a hiring filter: build the tool the senior dev would download
 - [x] You don't have a query problem, you have a context problem
 - [x] What "good" looks like for a database IDE in 2026
-- [ ] The pricing transparency test: why "contact sales" is the wrong answer for a developer tool
+- [x] The pricing transparency test: why "contact sales" is the wrong answer for a developer tool
 - [ ] Dead software and open licenses: what you owe the people who built workflows on your tool
 - [ ] Context windows are not the same as context: why AI tools need to earn trust one query at a time
 - [ ] Why "works on Postgres" is not Oracle expertise: the case for dialect-specific tooling
