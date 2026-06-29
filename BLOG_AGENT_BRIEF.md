@@ -63,10 +63,13 @@ When the queue gets low (≤3 unchecked of either kind), append 2-3 new ideas be
 - [x] Why we picked Tauri 2 over Electron for an Oracle IDE
 - [x] Per-connection safety: env tags, read-only mode, statement timeouts, unsafe-DML guards
 - [x] Auto-documenting 1000 PL/SQL packages overnight — design notes
-- [ ] Bind variables vs string concatenation: still relevant in the LLM era
+- [x] Bind variables vs string concatenation: still relevant in the LLM era
 - [ ] How Veesker handles Oracle wallet files: OCI, mTLS, and the cloud connection story
 - [ ] Writing a schema-aware PL/SQL formatter: rules you can't get from a generic linter
 - [ ] Oracle 23ai JSON Relational Duality Views: what they are and how to query them
+- [ ] CDB and PDB in practice: how Veesker navigates pluggable database hierarchies
+- [ ] Oracle statistics and histograms: why the CBO's plan changes when you gather stats
+- [ ] DBMS_OUTPUT, UTL_FILE, and logging patterns for PL/SQL debugging in 2026
 
 ### Manifestos (Thursday)
 
