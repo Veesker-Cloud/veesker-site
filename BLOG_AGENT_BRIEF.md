@@ -65,7 +65,7 @@ When the queue gets low (≤3 unchecked of either kind), append 2-3 new ideas be
 - [x] Auto-documenting 1000 PL/SQL packages overnight — design notes
 - [x] Bind variables vs string concatenation: still relevant in the LLM era
 - [x] How Veesker handles Oracle wallet files: OCI, mTLS, and the cloud connection story
-- [ ] Writing a schema-aware PL/SQL formatter: rules you can't get from a generic linter
+- [x] Writing a schema-aware PL/SQL formatter: rules you can't get from a generic linter
 - [ ] Oracle 23ai JSON Relational Duality Views: what they are and how to query them
 - [ ] CDB and PDB in practice: how Veesker navigates pluggable database hierarchies
 - [ ] Oracle statistics and histograms: why the CBO's plan changes when you gather stats
