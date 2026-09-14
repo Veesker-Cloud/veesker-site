@@ -69,10 +69,13 @@ When the queue gets low (≤3 unchecked of either kind), append 2-3 new ideas be
 - [x] Oracle 23ai JSON Relational Duality Views: what they are and how to query them
 - [x] CDB and PDB in practice: how Veesker navigates pluggable database hierarchies
 - [x] Oracle statistics and histograms: why the CBO's plan changes when you gather stats
-- [ ] DBMS_OUTPUT, UTL_FILE, and logging patterns for PL/SQL debugging in 2026
+- [x] DBMS_OUTPUT, UTL_FILE, and logging patterns for PL/SQL debugging in 2026
 - [ ] Oracle 23ai property graphs: querying relationships with GRAPH_TABLE and SQL/PGQ
 - [ ] Parsing and generating JSON in PL/SQL: JSON_OBJECT_T, JSON_ARRAY_T, and the 23ai operators
 - [ ] Oracle Scheduler (DBMS_SCHEDULER) in 2026: chains, windows, and job monitoring patterns
+- [ ] Row-level security in Oracle: Virtual Private Database, Oracle Label Security, and when each applies
+- [ ] Oracle Data Pump (expdp/impdp) in 2026: network links, remap options, and the cases where it still beats alternatives
+- [ ] Fine-grained auditing with DBMS_FGA: capturing what changed, who changed it, and the old values
 
 ### Manifestos (Thursday)
 
