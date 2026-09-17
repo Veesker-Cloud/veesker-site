@@ -86,10 +86,13 @@ When the queue gets low (≤3 unchecked of either kind), append 2-3 new ideas be
 - [x] What "good" looks like for a database IDE in 2026
 - [x] The pricing transparency test: why "contact sales" is the wrong answer for a developer tool
 - [x] Dead software and open licenses: what you owe the people who built workflows on your tool
-- [ ] Context windows are not the same as context: why AI tools need to earn trust one query at a time
+- [x] Context windows are not the same as context: why AI tools need to earn trust one query at a time
 - [ ] Why "works on Postgres" is not Oracle expertise: the case for dialect-specific tooling
 - [ ] The trust gap in AI-generated SQL: how grounding closes it
 - [ ] Observability starts at the query: why SQL visibility is the underrated half of database monitoring
+- [ ] Schema drift is a governance problem, not a tooling problem: the case for change tracking in your IDE
+- [ ] Why one pricing tier is a product decision, not a sales failure
+- [ ] The read-only connection is not a crutch — it is the first safety discipline every Oracle team needs
 
 ## Voice reference
 
