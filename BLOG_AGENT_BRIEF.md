@@ -86,10 +86,13 @@ When the queue gets low (≤3 unchecked of either kind), append 2-3 new ideas be
 - [x] What "good" looks like for a database IDE in 2026
 - [x] The pricing transparency test: why "contact sales" is the wrong answer for a developer tool
 - [x] Dead software and open licenses: what you owe the people who built workflows on your tool
-- [ ] Context windows are not the same as context: why AI tools need to earn trust one query at a time
+- [x] Context windows are not the same as context: why AI tools need to earn trust one query at a time
 - [ ] Why "works on Postgres" is not Oracle expertise: the case for dialect-specific tooling
 - [ ] The trust gap in AI-generated SQL: how grounding closes it
 - [ ] Observability starts at the query: why SQL visibility is the underrated half of database monitoring
+- [ ] SQL is not a legacy skill — it is the interface to your data
+- [ ] Why read-only mode is not optional: the case for explicit query safety in database tools
+- [ ] The hidden cost of abstraction: ORMs, query builders, and the SQL you lost along the way
 
 ## Voice reference
 
