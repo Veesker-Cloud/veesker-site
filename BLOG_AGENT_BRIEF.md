@@ -86,10 +86,13 @@ When the queue gets low (≤3 unchecked of either kind), append 2-3 new ideas be
 - [x] What "good" looks like for a database IDE in 2026
 - [x] The pricing transparency test: why "contact sales" is the wrong answer for a developer tool
 - [x] Dead software and open licenses: what you owe the people who built workflows on your tool
-- [ ] Context windows are not the same as context: why AI tools need to earn trust one query at a time
+- [x] Context windows are not the same as context: why AI tools need to earn trust one query at a time
 - [ ] Why "works on Postgres" is not Oracle expertise: the case for dialect-specific tooling
 - [ ] The trust gap in AI-generated SQL: how grounding closes it
 - [ ] Observability starts at the query: why SQL visibility is the underrated half of database monitoring
+- [ ] The schema is the source of truth: why no AI database tool should be trusted without it
+- [ ] SQL is not a scripting language: why database code deserves the same engineering rigor as application code
+- [ ] When Oracle calls it deprecated, it usually means ten more years: the real lifecycle of Oracle features
 
 ## Voice reference
 
